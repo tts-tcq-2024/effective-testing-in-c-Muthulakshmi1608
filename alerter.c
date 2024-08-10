@@ -36,6 +36,7 @@ int main() {
     alertInCelcius(NAN);
     alertInCelcius(INFINITY);
     printf("%d alerts failed.\n", alertFailureCount);
+    assert(alertFailureCount == 2);
     printf("All is well (maybe!)\n");
     return 0;
 }
