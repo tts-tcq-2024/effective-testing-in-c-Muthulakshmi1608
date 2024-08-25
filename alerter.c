@@ -7,11 +7,12 @@ float capturedCelcius;
 
 int realTimenetworkAlerter(float celcius){
       //Realtime Network Communication
+      (void)celcius;
       return 0;
 }
 void alertInCelcius(float farenheit,int (*networkAlerter)(float celcius)) {
     float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
+    int returnCode = networkAlerter(celcius);
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
         // let us keep a count of failures to report
@@ -44,7 +45,7 @@ void test_cases(){
       assert(alertFailureCount == 1); //State Based Testing
       alertFailureCount=0;
       float expectedCelcius=200;
-      alertInCelcius(400.5,&networkAlertStub);
+      alertInCelcius(400.5,&networkAlertMock);
       assert(expectedCelcius == capturedCelcius);
 }
 
