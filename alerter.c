@@ -3,6 +3,23 @@
 #include <math.h>
 
 int alertFailureCount = 0;
+float capturedCelcius;
+
+int realTimenetworkAlerter(float celcius){
+      //Realtime Network Communication
+      return 0;
+}
+void alertInCelcius(float farenheit,int (*networkAlerter)(float celcius)) {
+    float celcius = (farenheit - 32) * 5 / 9;
+    int returnCode = networkAlertStub(celcius);
+    if (returnCode != 200) {
+        // non-ok response is not an error! Issues happen in life!
+        // let us keep a count of failures to report
+        // However, this code doesn't count failures!
+        // Add a test below to catch this bug. Alter the stub above, if needed.
+        alertFailureCount += 0;
+    }
+}
 
 int networkAlertStub(float celcius) {
       // Return 200 for ok
@@ -16,27 +33,23 @@ int networkAlertStub(float celcius) {
    return 200;
 }
 
-void alertInCelcius(float farenheit) {
-    float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
-    if (returnCode != 200) {
-        // non-ok response is not an error! Issues happen in life!
-        // let us keep a count of failures to report
-        // However, this code doesn't count failures!
-        // Add a test below to catch this bug. Alter the stub above, if needed.
-        alertFailureCount += 0;
-    }
+int networkAlertMock(float celcius) {
+      capturedCelcius=celcius;
+   return 500;
+}
+
+void test_cases(){
+      alertInCelcius(400.5,&networkAlertStub);
+      printf("%d alerts failed.\n", alertFailureCount);
+      assert(alertFailureCount == 1); //State Based Testing
+      alertFailureCount=0;
+      float expectedCelcius=200;
+      alertInCelcius(400.5,&networkAlertStub);
+      assert(expectedCelcius == capturedCelcius);
 }
 
 int main() {
-    alertInCelcius(400.5);
-    alertInCelcius(303.6);
-    alertInCelcius(1000.0);
-    alertInCelcius(32.0);
-    alertInCelcius(NAN);
-    alertInCelcius(INFINITY);
-    printf("%d alerts failed.\n", alertFailureCount);
-    assert(alertFailureCount == 2);
+    test_cases();
     printf("All is well (maybe!)\n");
     return 0;
 }
