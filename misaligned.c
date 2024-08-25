@@ -28,9 +28,7 @@ int printColorMap(void (*manualPrinter)(int colorCode, const char* majorColor, c
 
 void fakeManualPrinterStub(int colorCode, const char* majorColor, const char* minorColor) {
     // Mark the parameters as unused
-    (void)colorCode;
-    (void)majorColor;
-    (void)minorColor;
+    return colorCode;
     // No logic needed for the stub, just a placeholder
 }
 
