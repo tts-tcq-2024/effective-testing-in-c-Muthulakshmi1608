@@ -27,6 +27,10 @@ int printColorMap(void (*manualPrinter)(int colorCode, const char* majorColor, c
 }
 
 void fakeManualPrinterStub(int colorCode, const char* majorColor, const char* minorColor) {
+    // Mark the parameters as unused
+    (void)colorCode;
+    (void)majorColor;
+    (void)minorColor;
     // No logic needed for the stub, just a placeholder
 }
 
@@ -65,7 +69,7 @@ void test_cases() {
 
 int main() {
     test_cases();
-    int result = printColorMap(&printColorCodeManualOnConsole);
+    printColorMap(&printColorCodeManualOnConsole);  // Removed unused result variable
     printf("All is well (maybe!)\n");
     return 0;
 }
