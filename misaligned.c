@@ -20,7 +20,7 @@ int printColorMap(void (*manualPrinter)(int colorCode, const char* majorColor, c
     int i, j;
     for (i = 0; i < 5; i++) {
         for (j = 0; j < 5; j++) {
-            manualPrinter(i * 5 + j, majorColor[i], minorColor[j]);
+            manualPrinter(i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
     return i * j;
