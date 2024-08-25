@@ -43,7 +43,7 @@ void test_cases() {
     int result = printColorMap(&fakeManualPrinterStub);
     assert(result == 25);
 
-    // Interaction-based Testing with intentional bug in the mock
+    // Interaction-based Testing
     result = printColorMap(&fakeManualPrinterMock);
 
     // Initialize the expectedManualList
