@@ -44,22 +44,25 @@ void test_cases() {
     int result = printColorMap(&fakeManualPrinterStub);
     assert(result == 25);
 
-    // Interaction-based Testing
+    // Interaction-based Testing with intentional bug in the mock
     result = printColorMap(&fakeManualPrinterMock);
 
+    // Initialize the expectedManualList
     colorCodeManualItem expectedManualList[25];
     const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
     const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
+    int index = 0;
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-            int code = i * 5 + j;
-            expectedManualList[code].capturedColorCode = code;
-            expectedManualList[code].capturedMajorColor = majorColor[i];
-            expectedManualList[code].capturedMinorColor = minorColor[j];
+            expectedManualList[index].capturedColorCode = index;
+            expectedManualList[index].capturedMajorColor = majorColor[i];
+            expectedManualList[index].capturedMinorColor = minorColor[j];
+            index++;
         }
     }
 
+    // Now compare the capturedManualList against the expectedManualList
     for (int k = 0; k < 25; k++) {
         assert(expectedManualList[k].capturedColorCode == capturedManualList[k].capturedColorCode);
         assert(strcmp(expectedManualList[k].capturedMajorColor, capturedManualList[k].capturedMajorColor) == 0);
